@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>望城区社区工作者笔试模拟考试</title>
+  <style>
+    :root {
+      --blue: #2563eb;
+      --ink: #172033;
+      --muted: #667085;
+      --line: #e7ebf2;
+      --bg: #f4f6fa;
+      --green: #16a36a;
+      --red: #dc4c4c;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font: 15px/1.7 -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+
+    header {
+      background: linear-gradient(120deg, #183b72, #2563eb);
+      color: #fff;
+      padding: 28px 22px;
+    }
+
+    .head {
+      max-width: 1180px;
+      margin: auto;
+    }
+
+    .eyebrow {
+      font-size: 12px;
+      letter-spacing: 2px;
+      opacity: .8;
+    }
+
+    .head h1 {
+      margin: 5px 0;
+      font-size: 25px;
+    }
+
+    .head p {
+      margin: 4px 0 0;
+      opacity: .85;
+    }
+
+    .layout {
+      max-width: 1180px;
+      margin: 22px auto;
+      padding: 0 16px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 265px;
+      gap: 20px;
+      align-items: start;
+    }
+
+    main,
+    .sidebar {
+      min-width: 0;
+    }
+
+    .panel,
+    .section,
+    .question {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+    }
+
+    .panel {
+      padding: 18px 20px;
+      margin-bottom: 16px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .stat {
+      background: #f7f9fc;
+      border-radius: 9px;
+      padding: 10px 12px;
+    }
+
+    .stat b {
+      display: block;
+      font-size: 19px;
+      color: #1d4ed8;
+    }
+
+    .stat span {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .section {
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 12px;
+      margin-bottom: 14px;
+    }
+
+    .section h2 {
+      font-size: 18px;
+      margin: 0;
+    }
+
+    .section-head small {
+      color: var(--muted);
+    }
+
+    .question {
+      padding: 16px 17px;
+      margin: 12px 0;
+      scroll-margin-top: 15px;
+    }
+
+    .qtop {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .qnum {
+      background: #edf3ff;
+      color: #2456b8;
+      font-weight: 700;
+      border-radius: 6px;
+      padding: 1px 8px;
+      white-space: nowrap;
+    }
+
+    .qtitle {
+      font-weight: 600;
+      flex: 1;
+    }
+
+    .points {
+      font-size: 12px;
+      color: #8590a3;
+      white-space: nowrap;
+    }
+
+    .options {
+      display: grid;
+      gap: 8px;
+      margin: 12px 0 0 42px;
+    }
+
+    .opt {
+      display: flex;
+      gap: 9px;
+      align-items: flex-start;
+      padding: 7px 10px;
+      border: 1px solid transparent;
+      border-radius: 7px;
+      cursor: pointer;
+    }
+
+    .opt:hover {
+      background: #f6f8fc;
+    }
+
+    .opt input {
+      margin-top: 5px;
+      accent-color: var(--blue);
+    }
+
+    .opt.selected {
+      background: #f0f5ff;
+      border-color: #c8d8ff;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 112px;
+      border: 1px solid #d9dfeb;
+      border-radius: 8px;
+      padding: 11px;
+      font: inherit;
+      resize: vertical;
+      outline: none;
+    }
+
+    textarea:focus,
+    input[type=number]:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px #2563eb18;
+    }
+
+    .subject {
+      margin: 14px 0;
+    }
+
+    .subject label {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .rubric {
+      font-size: 13px;
+      color: var(--muted);
+      background: #f8f9fc;
+      padding: 10px 12px;
+      border-radius: 7px;
+      margin: 8px 0 12px;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 16px;
+    }
+
+    .sidebox {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+
+    .sidebox h3 {
+      font-size: 15px;
+      margin: 0 0 12px;
+    }
+
+    .progress {
+      height: 7px;
+      background: #edf0f5;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .progress i {
+      display: block;
+      height: 100%;
+      background: var(--blue);
+      width: 0;
+      transition: .2s;
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--muted);
+      margin: 7px 0 13px;
+    }
+
+    .navgrid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+    }
+
+    .navgrid button {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 6px;
+      padding: 5px 0;
+      color: #596579;
+      cursor: pointer;
+    }
+
+    .navgrid button.done {
+      background: #eaf1ff;
+      border-color: #b8ceff;
+      color: #1d4ed8;
+    }
+
+    .navgrid button.current {
+      outline: 2px solid var(--blue);
+    }
+
+    .legend {
+      font-size: 12px;
+      color: var(--muted);
+      display: flex;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .dot {
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #d6dce7;
+      margin-right: 4px;
+    }
+
+    .dot.blue {
+      background: #4c80e8;
+    }
+
+    button.primary,
+    button.secondary {
+      border: 0;
+      border-radius: 8px;
+      padding: 11px 16px;
+      font: inherit;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .primary {
+      background: var(--blue);
+      color: #fff;
+      width: 100%;
+    }
+
+    .primary:hover {
+      background: #174fc4;
+    }
+
+    .secondary {
+      background: #edf2fb;
+      color: #244d94;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .actions button {
+      flex: 1;
+    }
+
+    .score-result {
+      display: none;
+    }
+
+    .score-big {
+      font-size: 42px;
+      font-weight: 800;
+      color: #1d4ed8;
+      line-height: 1.2;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin: 16px 0;
+    }
+
+    .result-cell {
+      background: #f6f8fc;
+      border-radius: 8px;
+      padding: 12px;
+    }
+
+    .result-cell b {
+      display: block;
+      font-size: 20px;
+    }
+
+    .result-cell span {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .feedback {
+      font-size: 13px;
+      margin-top: 9px;
+    }
+
+    .correct {
+      color: var(--green);
+    }
+
+    .wrong {
+      color: var(--red);
+    }
+
+    .answer {
+      display: none;
+      background: #f7f9fc;
+      padding: 9px 11px;
+      border-radius: 7px;
+      margin: 10px 0 0 42px;
+      font-size: 13px;
+    }
+
+    .analysis {
+      display: none;
+      background: #f0f7ff;
+      border-left: 3px solid var(--blue);
+      padding: 10px 12px;
+      border-radius: 0 7px 7px 0;
+      margin: 8px 0 0 42px;
+      font-size: 13px;
+      color: #1f3a5f;
+      line-height: 1.7;
+    }
+
+    .analysis b {
+      color: #1d4ed8;
+    }
+
+    .notice {
+      background: #fff8e8;
+      border: 1px solid #f3dfad;
+      color: #805b13;
+      padding: 12px 14px;
+      border-radius: 9px;
+      font-size: 13px;
+      margin-bottom: 16px;
+    }
+
+    footer {
+      text-align: center;
+      color: #98a1b1;
+      font-size: 12px;
+      padding: 28px;
+    }
+
+    @media (max-width: 850px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        order: -1;
+      }
+      .navgrid {
+        grid-template-columns: repeat(10, 1fr);
+      }
+    }
+
+    @media (max-width: 520px) {
+      .head h1 {
+        font-size: 20px;
+      }
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .section {
+        padding: 14px;
+      }
+      .question {
+        padding: 13px;
+      }
+      .options {
+        margin-left: 0;
+      }
+      .answer {
+        margin-left: 0;
+      }
+      .navgrid {
+        grid-template-columns: repeat(8, 1fr);
+      }
+      .result-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="head">
+      <div class="eyebrow">ONLINE MOCK EXAMINATION</div>
+      <h1>2025年长沙市望城区社区工作者笔试模拟考试</h1>
+      <p>考生回忆版试题 · 满分 100 分 · 客观题自动评分</p>
+    </div>
+  </header>
+
+  <div class="layout">
+    <main>
+      <div class="panel">
+        <div class="stats">
+          <div class="stat"><b>43 题</b><span>题目总数（含主观题）</span></div>
+          <div class="stat"><b>100 分</b><span>试卷总分</span></div>
+          <div class="stat"><b>40 分</b><span>客观题自动评分</span></div>
+          <div class="stat"><b>60 分</b><span>主观题人工自评</span></div>
+        </div>
+      </div>
+
+      <div class="notice">答题说明：判断题每题 0.8 分，单选题每题 1.1 分，多选题每题 1.2 分；综合题共 30 分，作文 30 分。多选题采用“选项完全一致才得分”的评分方式。由于原卷为考生回忆版且未附官方答案，客观题答案仅供练习参考。</div>
+
+      <div id="exam">
+        <section class="section">
+          <div class="section-head">
+            <h2>一、判断题</h2>
+            <small>15 题 · 每题 0.8 分 · 共 12 分</small>
+          </div>
+          <div id="tf"></div>
+        </section>
+
+        <section class="section">
+          <div class="section-head">
+            <h2>二、单项选择题</h2>
+            <small>20 题 · 每题 1.1 分 · 共 22 分</small>
+          </div>
+          <div id="single"></div>
+        </section>
+
+        <section class="section">
+          <div class="section-head">
+            <h2>三、多项选择题</h2>
+            <small>5 题 · 每题 1.2 分 · 共 6 分</small>
+          </div>
+          <div id="multi"></div>
+        </section>
+
+        <section class="section">
+          <div class="section-head">
+            <h2>四、综合题</h2>
+            <small>2 题 · 共 30 分</small>
+          </div>
+
+          <div class="subject question" id="subject41">
+            <div class="qtop">
+              <span class="qnum">综合题 1</span>
+              <div class="qtitle">赵某因为楼上的租户钱某下晚班后经常发生噪声而长期失眠，多次交涉无果，双方甚至发生言语冲突。问题一直没有得到解决，赵某一气之下采用极端手段，于凌晨在楼道猛敲脸盆，扩大影响，相关人员向社区反映，要求进行调解。</div>
+              <span class="points">15 分</span>
+            </div>
+            <label>① 如果你是社区工作人员，让你来处理此事，你会怎么处理？（6分）</label>
+            <textarea id="essay41a" placeholder="请输入你的作答内容……"></textarea>
+            <div class="rubric">自评参考：及时受理、分别沟通了解事实；组织双方调解、厘清诉求；提出合理作息与降噪方案；跟踪回访，必要时联动物业、公安等部门。请结合实际作答。</div>
+            <label>② 社区开展一次邻里关系和谐共建活动。你觉得一个活动主题，并谈谈你如何组织？（9分）</label>
+            <textarea id="essay41b" placeholder="请输入你的作答内容……"></textarea>
+            <div class="rubric">自评参考：主题鲜明；前期调研与方案制定；活动形式贴近居民（议事会、邻里节、文明公约等）；组织实施与宣传动员；活动总结及长效机制。</div>
+            <label>本题自评分（0—15分）</label>
+            <input type="number" min="0" max="15" step="0.5" id="score41" placeholder="输入自评分" style="padding:9px;border:1px solid #d9dfeb;border-radius:7px;width:130px">
+          </div>
+
+          <div class="subject question" id="subject42">
+            <div class="qtop">
+              <span class="qnum">综合题 2</span>
+              <div class="qtitle">片区网格员反映，某小区两侧公共过道有大量垃圾占道，不仅增加居民通行路程，而且阻碍消防通道、滋生蚊虫埋下隐患，周边居民反映强烈。</div>
+              <span class="points">15 分</span>
+            </div>
+            <label>① 如果你是社区工作人员，让你来处理此事，你会怎么处理？（4分）</label>
+            <textarea id="essay42a" placeholder="请输入你的作答内容……"></textarea>
+            <div class="rubric">自评参考：现场核查、评估消防和卫生风险；立即组织清理、疏通通道；明确责任主体并做好告知；后续巡查防止反弹。</div>
+            <label>② 如何发挥网格员在基层治理中的作用，谈谈你的建议。（11分）</label>
+            <textarea id="essay42b" placeholder="请输入你的作答内容……"></textarea>
+            <div class="rubric">自评参考：发挥信息收集员、政策宣传员、矛盾调解员、便民服务员、隐患排查员作用；完善走访巡查、问题上报、协同处置、跟踪反馈闭环；加强培训、激励和数字化支撑。</div>
+            <label>本题自评分（0—15分）</label>
+            <input type="number" min="0" max="15" step="0.5" id="score42" placeholder="输入自评分" style="padding:9px;border:1px solid #d9dfeb;border-radius:7px;width:130px">
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-head">
+            <h2>五、写作题</h2>
+            <small>1 题 · 30 分</small>
+          </div>
+          <div class="question">
+            <div class="qtop">
+              <span class="qnum">作文</span>
+              <div class="qtitle">根据材料启示，紧密联系实际，以“社区里面的‘小事’与‘大治’”为主题，自选角度，自拟题目，写一篇不少于 800 字的文章。</div>
+              <span class="points">30 分</span>
+            </div>
+            <div class="rubric">
+              <b>材料要点：</b>社会治理要坚持以人民为中心；材料中的社区通过文明养宠留言板、生活场景听证会、协商确定遛狗绳长度、建设宠物友好步道和居民自治队伍等方式，将居民身边小事转化为共建共治共享的治理实践。<br>
+              <b>自评维度：</b>立意与主题（8分）、结合材料和实际（8分）、论证结构与逻辑（7分）、语言表达（5分）、篇幅及卷面（2分）。
+            </div>
+            <textarea id="essay5" style="min-height:260px" placeholder="请输入作文，建议不少于 800 字……"></textarea>
+            <div style="display:flex;justify-content:space-between;color:#8791a2;font-size:12px;margin-top:5px">
+              <span>作文内容仅保存在当前页面，刷新后可能丢失</span>
+              <span id="wordCount">0 字</span>
+            </div>
+            <label style="display:block;margin-top:14px;font-weight:600">作文自评分（0—30分）</label>
+            <input type="number" min="0" max="30" step="0.5" id="score5" placeholder="输入自评分" style="padding:9px;border:1px solid #d9dfeb;border-radius:7px;width:130px">
+          </div>
+        </section>
+
+        <div class="panel">
+          <b>交卷前检查</b>
+          <p style="color:#667085;margin:5px 0">确认客观题已完成，并为综合题、作文填写自评分。你也可以先交卷查看客观题成绩，再补充主观题分数重新计算。</p>
+          <button class="primary" onclick="submitExam()">提交试卷并计算成绩</button>
+        </div>
+
+        <div class="panel score-result" id="result">
+          <h2 style="margin-top:0">考试成绩</h2>
+          <div class="score-big" id="totalScore">0.0 <small style="font-size:17px;color:#77839a">/ 100 分</small></div>
+          <div id="gradeText" style="color:#667085;margin-top:5px"></div>
+          <div class="result-grid">
+            <div class="result-cell"><b id="objScore">0</b><span>客观题得分 / 40</span></div>
+            <div class="result-cell"><b id="subScore">0</b><span>主观题自评分 / 60</span></div>
+            <div class="result-cell"><b id="answered">0/40</b><span>客观题已作答</span></div>
+          </div>
+          <div id="review"></div>
+          <button class="secondary" onclick="document.getElementById('exam').scrollIntoView({behavior:'smooth'})">返回检查答案</button>
+        </div>
+      </div>
+    </main>
+
+    <aside class="sidebar">
+      <div class="sidebox">
+        <h3>答题进度</h3>
+        <div class="progress"><i id="progressBar"></i></div>
+        <div class="progress-label">
+          <span>已作答 <b id="doneCount">0</b> 题</span>
+          <span>共 40 题</span>
+        </div>
+        <h3>题目导航</h3>
+        <div class="navgrid" id="nav"></div>
+        <div class="legend">
+          <span><i class="dot blue"></i>已作答</span>
+          <span><i class="dot"></i>未作答</span>
+        </div>
+      </div>
+      <div class="sidebox">
+        <h3>考试信息</h3>
+        <div style="font-size:13px;color:#667085">
+          试卷来源：考生回忆版<br>
+          考试总分：100 分<br>
+          客观题：40 分<br>
+          主观题：60 分<br>
+          评分方式：客观题自动判分，主观题自评
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <footer>本页面为个人学习练习工具 · 参考答案不代表官方标准答案</footer>
+
+  <script>
+    // ===================== 题库数据 =====================
+    // 判断题：[题干, 答案（1 = 正确，0 = 错误）, 解析]
+    const tf = [
+      ["中国共产党是中国工人阶级的先锋队，同时是中国人民和中华民族的先锋队，坚持全心全意为人民服务。", 1, "《中国共产党章程》总纲明确规定：中国共产党是中国工人阶级的先锋队，同时是中国人民和中华民族的先锋队；党坚持全心全意为人民服务。"],
+      ["到2035年，我国将基本完成智能化、信息化、城镇化、农业现代化，建成现代化经济体系。", 0, "党的二十大报告提出，到2035年要基本实现新型工业化、信息化、城镇化、农业现代化。题干将“新型工业化”替换为“智能化”，表述不准确。"],
+      ["截至2024年底，中国共产党党员人数达到1亿人。", 1, "中央组织部2025年6月发布数据：截至2024年12月31日，中国共产党党员总数为10027.1万名，已突破1亿人。"],
+      ["“两个确立”是指：确立习近平同志党中央的核心、全党的核心地位，确立习近平新时代中国特色社会主义思想的指导地位。", 1, "党的十九届六中全会通过的《中共中央关于党的百年奋斗重大成就和历史经验的决议》明确概括了“两个确立”的完整内涵。"],
+      ["高质量发展是全面建设社会主义现代化国家的首要任务。", 1, "习近平总书记在党的二十大报告中指出：“高质量发展是全面建设社会主义现代化国家的首要任务。”"],
+      ["农村基层深入开展中央八项规定精神学习教育，注重同巩固拓展脱贫攻坚成果结合起来。", 1, "2025年全党开展深入贯彻中央八项规定精神学习教育，农村基层应结合实际，注重与巩固拓展脱贫攻坚成果、推进乡村振兴等工作相结合。"],
+      ["形式主义、官僚主义、主观主义，与党的性质宗旨和优良作风格格不入，是党和人民的大敌。", 1, "习近平总书记多次强调，形式主义、官僚主义是党和人民的大敌。题干所指不良作风均与党的性质宗旨和优良作风格格不入。"],
+      ["中国共产党自成立以来，始终将实现社会主义作为根本政治追求。", 0, "《中国共产党章程》规定，党的最高理想和最终目标是实现共产主义。社会主义是共产主义的初级阶段，不能替代共产主义的根本政治追求。"],
+      ["习近平新时代中国特色社会主义经济思想是当代中国、21世纪最新成果。", 0, "规范表述为：习近平新时代中国特色社会主义思想是当代中国马克思主义、二十一世纪马克思主义；或习近平经济思想是新时代经济工作的根本遵循。题干表述不完整、不规范。"],
+      ["“四个自信”中，文化自信是更基础、更广泛、更深厚的自信。", 1, "习近平总书记指出：“文化自信，是更基础、更广泛、更深厚的自信”，是更基本、更深沉、更持久的力量。"],
+      ["社区人数增加，要新建一个居民委员会，需要经社区居民会议讨论通过。", 0, "《城市居民委员会组织法》第六条规定，居民委员会的设立、撤销、规模调整，由不设区的市、市辖区的人民政府决定，而非由居民会议讨论通过。"],
+      ["社区居委会成员任期3年，届满后可连选连任。", 0, "《城市居民委员会组织法》第八条规定，居民委员会每届任期五年，其成员可以连选连任。题干中的“3年”不符合现行法律规定。"],
+      ["在小区某文化活动中，王某作为负责人，将物品放在消防通道并堵塞通道，其行为不违反社会治安管理处罚法。", 0, "《治安管理处罚法》第三十八条规定，举办大型群众性活动违反有关规定、有发生安全事故危险的，对组织者可处拘留和罚款。堵塞消防通道存在安全隐患，可依法处罚。"],
+      ["人把塑料瓶压扁，此变化属于化学变化。", 0, "塑料瓶压扁只是形状发生改变，没有新物质生成，属于物理变化。化学变化的本质是有新物质生成。"],
+      ["居民通过公示栏玻璃橱窗可以看到里面的公示内容，同时也可以看到玻璃外面的事物，这里是由于玻璃橱窗发生了反射和折射。", 0, "能同时看到玻璃内外景物，主要是因为玻璃表面同时发生了光的反射（看到外侧景物）和透射（看到内侧内容），题干表述为“反射和折射”不够准确。"]
+    ];
+
+    // 单选题：[题干, [选项...], 正确选项下标, 解析]
+    const single = [
+      ["下列不属于党的优良作风的是？", ["理论联系实际", "依靠群众取得胜利", "和人民群众紧密联系在一起", "批评与自我批评"], 1, "党的三大优良作风是理论联系实际、密切联系群众、批评与自我批评。B项“依靠群众取得胜利”是群众路线精神，但不是三大优良作风的规范表述。"],
+      ["2025年是中国人民抗日战争胜利多少周年？", ["60周年", "65周年", "70周年", "80周年"], 3, "中国人民抗日战争暨世界反法西斯战争胜利于1945年，2025−1945=80周年。"],
+      ["宪法是其他法律的基础和立法依据，这是因为？", ["宪法具有最高的法律效力", "宪法规定一切法律、行政法规和地方性法规都不得同宪法抵触", "宪法是一切组织和个人的根本活动准则", "宪法规定了国家生活中的根本问题"], 3, "宪法规定国家生活中最根本、最重要的问题，其他法律必须依据宪法制定，不得同宪法相抵触。D项最准确地揭示了宪法作为立法依据的根本原因。"],
+      ["我国坚持山水林田湖草系统治理，构建以什么为主体的自然保护地体系？", ["国家公园", "城市绿地", "江河湖泊", "森林绿地"], 0, "党的十九大报告和《“十四五”林业草原保护发展规划纲要》明确提出，构建以国家公园为主体的自然保护地体系。"],
+      ["把中央关于贯彻落实什么的要求落实到工作中去？", ["全面发展", "新发展理念", "科学发展", "共同发展"], 1, "习近平总书记多次强调，要把新发展理念贯彻到经济社会发展全过程和各领域，完整、准确、全面贯彻新发展理念。"],
+      ["健全现代文化产业体系，坚持把什么放在首位，社会效益和经济效益相统一？", ["经济", "社会", "文化", "政治"], 1, "党的二十大报告提出：“坚持把社会效益放在首位、社会效益和经济效益相统一，深化文化体制改革，完善文化经济政策。”"],
+      ["习近平总书记指出，中国共产党在成立之初就意识到，中国革命的基本问题是什么问题？", ["农民", "贫富", "土地", "农业"], 0, "毛泽东在《中国社会各阶级的分析》《湖南农民运动考察报告》等著作中指出，农民问题是中国革命的基本问题，中国共产党自成立起就高度重视农民问题。"],
+      ["旗帜鲜明讲政治、保证党的团结和集中统一是？", ["党的纪律", "党的生命", "党的要求", "党的制度"], 1, "习近平总书记强调：“旗帜鲜明讲政治、保证党的团结和集中统一是党的生命，也是我们党能成为百年大党、创造世纪伟业的关键所在。”"],
+      ["判断新事物的标准是？", ["是否是新的历史条件下形成的", "是否具有新形势、新特点", "是否符合客观规律、有强大生命力", "是否得到大多数人的认可"], 2, "马克思主义哲学认为，判断新事物的根本标准在于它是否符合客观规律、是否具有强大生命力和远大发展前途，而不是出现时间早晚或形式新旧。"],
+      ["灯泡、外科消毒等曾经受到质疑，新冠疫苗刚开始也受到质疑，经过发展后不断迭代。这体现的哲理是？", ["矛盾是同一性和斗争性的辩证统一", "具体问题具体分析是解决问题的关键", "矛盾的普遍性寓于特殊性之中", "事物发展是前进性与曲折性相统一"], 3, "新事物的发展会经历质疑、困难等曲折过程，但最终不断向前发展，体现了事物发展的前进性与曲折性的统一。"],
+      ["“十四五”时期我国城乡社区发展目标，下列不属于的是？", ["实现社区完全依靠人工，不使用智能设备", "党建引领社区服务机制更完善", "线上与线下结合，完善社区公共服务", "让基本公共服务城乡均衡发展"], 0, "《“十四五”城乡社区服务体系建设规划》明确提出推进智慧社区建设，推动线上线下服务融合，而非“完全依靠人工，不使用智能设备”。"],
+      ["对于社区工作者，下列说法正确的是？", ["不给予合理的薪酬待遇", "鼓励大学毕业生到社区就业", "不允许社会机构对社区进行相关培训", "限制社区工作人员发展空间"], 1, "中共中央办公厅、国务院办公厅《关于加强社区工作者队伍建设的意见》等政策明确提出，鼓励高校毕业生等到社区工作，拓宽社区工作者来源渠道。"],
+      ["社区居民可以通过APP进行社区服务，并及时跟进和开展相关工作，这表明社区的什么功能？", ["智能社区服务", "减少居民参与", "限制信息公开", "增加办事难度"], 0, "通过APP等信息化手段提供社区服务、跟进事务办理，体现的是智慧社区或智能社区服务功能。"],
+      ["社区居委会的性质是？", ["基层政府机关", "基层群众自治组织", "政府派出机构", "社会团体"], 1, "《城市居民委员会组织法》第二条规定，居民委员会是居民自我管理、自我教育、自我服务的基层群众性自治组织。"],
+      ["居委会法定组成人员是？", ["社区内所有户籍居民", "每户派一名代表", "居民小组选举的代表", "年满18周岁的本社区居民"], 3, "《城市居民委员会组织法》第八条规定，年满十八周岁的本居住地区居民依法享有选举权和被选举权（依法被剥夺政治权利的人除外），可成为居委会组成人员。"],
+      ["社区的经费来源是？", ["社区经营性收入", "居民自筹资金", "不设区的市、市辖区人民政府的拨款", "上级民政部门的专项补贴"], 2, "《城市居民委员会组织法》第十七条规定，居民委员会的工作经费和成员生活补贴费，由不设区的市、市辖区的人民政府或者上级人民政府规定并拨付。"],
+      ["广场舞小队早上6点在小区播放音乐，造成严重噪音，交涉无果后居民投诉。根据治安管理处罚法，下列说法正确的是？", ["先警告，如不改正进行罚款", "对小区居民进行精神赔偿", "进行行政拘留15天", "法院追究刑事责任"], 0, "《治安管理处罚法》第五十八条规定，制造噪声干扰他人正常生活的，处警告；警告后不改正的，处二百元以上五百元以下罚款。"],
+      ["陈某遛狗，狗在草坪大小便，陈某拒绝清扫，居民投诉。根据治安管理处罚法，下列说法正确的是？", ["予以警告或者处以一定罚款", "没收陈某的狗", "禁止陈某进行遛狗", "陈某支付修理草坪的费用"], 0, "《治安管理处罚法》第七十五条规定，饲养动物干扰他人正常生活的，处警告；警告后不改正的，或者放任动物恐吓他人的，处二百元以上五百元以下罚款。"],
+      ["下列有歧义的是？", ["乡村振兴的前提是巩固脱贫攻坚成果，要持续抓紧抓好，让脱贫群众生活更上一层楼", "是谁创造了历史，这个问题是历史学家和哲学家争论不休的问题", "学界对敦煌的不断研究，有了新成果，增加了新知识", "高校数字化改革是一项物理空间和数字空间深度融合的复杂系统工程，也是一个长期的螺旋式迭代的过程"], 2, "C项“学界对敦煌的不断研究，有了新成果，增加了新知识”主语模糊，既可以理解为“学界”有了新成果，也可理解为“敦煌”研究本身增加了知识，存在歧义。"],
+      ["适用于公布重要决定、重大事项的公文种类是？", ["决定", "命令", "公报", "通知"], 2, "《党政机关公文处理工作条例》第八条规定，公报适用于公布重要决定或者重大事项；决定适用于对重要事项作出决策部署等；命令适用于公布行政法规和规章等；通知适用于发布、传达要求执行的事项。"]
+    ];
+
+    // 多选题：[题干, [选项...], [正确选项下标...], 解析]
+    const multi = [
+      ["关于提高人民生活水平的品质，说法正确的是？", ["分配制度是促进共同富裕的基础性制度", "就业是最基本的民生", "社会保障体系是人民生活的安全网和社会运行的稳定器", "人民健康是民族昌盛和国家强盛的重要标志"], [0, 1, 2, 3], "党的二十大报告和相关《决定》指出：分配制度是促进共同富裕的基础性制度；就业是最基本的民生；社会保障体系是人民生活的安全网和社会运行的稳定器；人民健康是民族昌盛和国家强盛的重要标志。四项表述均正确。"],
+      ["全面深化改革、构建高水平社会主义市场经济体制中，更好发挥政府作用，推动什么结合？", ["民营企业", "国有企业", "有效市场", "有为政府"], [2, 3], "党的二十大报告和二十届三中全会《决定》强调，要充分发挥市场在资源配置中的决定性作用，更好发挥政府作用，推动有效市场和有为政府更好结合。"],
+      ["习近平总书记指出，我们党来自人民、植根人民、服务人民，党的根基在人民、血脉在人民、力量在人民。人民是我们党执政的最大底气，是我们共和国的坚实根基，是我们强党兴国的根本所在。人民对美好生活的向往，就是我们的奋斗目标。由此可以说明？", ["坚持依靠人民胜利的历史伟业", "坚持完善领导方式和执政方式", "坚持理论联系实际", "坚持“不忘初心、牢记使命”"], [0, 3], "题干核心强调党与人民的关系、以人民为中心的发展思想，说明党要始终依靠人民创造历史伟业，坚守为中国人民谋幸福、为中华民族谋复兴的初心使命。"],
+      ["关于2024年我国取得的成绩，下列说法正确的是？", ["加大单边开放力度，对所有建交的最不发达国家给予全面零关税待遇", "扎实筹办第九届亚洲冬运会，成功举办第十二届全国少数民族传统体育运动会", "启动全国温室气体自愿减排交易市场", "大力发展新能源产业，非化石能源发电占总发电量近40%"], [0, 1, 2, 3], "2025年《政府工作报告》回顾2024年工作时指出：加大单边开放力度，对所有同中国建交的最不发达国家给予100%税目产品零关税待遇；扎实筹办第九届亚洲冬季运动会，成功举办第十二届全国少数民族传统体育运动会；启动全国温室气体自愿减排交易市场；非化石能源发电量占总发电量比重接近40%。四项表述均正确。"],
+      ["下列景点在望城区的是？", ["靖港古镇", "黑麋峰公园", "乔口渔都", "千龙湖生态度假区"], [0, 1, 2, 3], "靖港古镇、黑麋峰国家森林公园（部分位于望城区）、乔口渔都、千龙湖生态旅游度假区均为长沙市望城区知名文旅景点。"]
+    ];
+
+    // ===================== 渲染逻辑 =====================
+    const letters = ["A", "B", "C", "D"];
+    let all = [];
+
+    function renderQuestions(id, arr, type, start, point) {
+      const root = document.getElementById(id);
+      arr.forEach((q, i) => {
+        let n = start + i;
+        let answerIdx = type === "tf" ? 1 : 2;
+        let analysisIdx = type === "tf" ? 2 : 3;
+        let correctAnswer = type === "tf" ? (q[answerIdx] === 1 ? 0 : 1) : q[answerIdx];
+        let analysis = q[analysisIdx] || "";
+        all.push({ n, type, answer: correctAnswer, point, analysis });
+
+        let el = document.createElement("div");
+        el.className = "question";
+        el.id = "q" + n;
+
+        let title = q[0];
+        let opts = type === "tf" ? ["正确", "错误"] : q[1].map((x, j) => letters[j] + "．" + x);
+
+        el.innerHTML = `
+          <div class="qtop">
+            <span class="qnum">${n}</span>
+            <div class="qtitle">${title}</div>
+            <span class="points">${point} 分</span>
+          </div>
+          <div class="options">
+            ${opts.map((o, j) => `
+              <label class="opt">
+                <input type="${type === "multi" ? "checkbox" : "radio"}" name="q${n}" value="${type === "tf" ? j : j}">
+                <span>${o}</span>
+              </label>
+            `).join("")}
+          </div>
+          <div class="feedback" id="f${n}"></div>
+          <div class="answer" id="a${n}"></div>
+          <div class="analysis" id="an${n}"><b>答案解析：</b>${analysis}</div>
+        `;
+        root.appendChild(el);
+
+        el.querySelectorAll("input").forEach(inp => inp.addEventListener("change", () => {
+          el.querySelectorAll(".opt").forEach(x => x.classList.toggle("selected", x.querySelector("input").checked));
+          updateProgress();
+        }));
+      });
+    }
+
+    renderQuestions("tf", tf, "tf", 1, .8);
+    renderQuestions("single", single, "single", 16, 1.1);
+    renderQuestions("multi", multi, "multi", 36, 1.2);
+
+    // ===================== 答题状态 =====================
+    function getSelected(n, type) {
+      let els = [...document.querySelectorAll(`[name="q${n}"]:checked`)];
+      return type === "multi" ? els.map(x => +x.value) : els.length ? +els[0].value : null;
+    }
+
+    function updateProgress() {
+      let count = all.filter(q => {
+        let a = getSelected(q.n, q.type);
+        return Array.isArray(a) ? a.length > 0 : a !== null;
+      }).length;
+      document.getElementById("doneCount").textContent = count;
+      document.getElementById("progressBar").style.width = count / 40 * 100 + "%";
+      document.getElementById("answered").textContent = count + "/40";
+      document.querySelectorAll(".navgrid button").forEach((b, i) => {
+        let q = all[i];
+        let a = getSelected(q.n, q.type);
+        b.classList.toggle("done", Array.isArray(a) ? a.length > 0 : a !== null);
+      });
+    }
+
+    function buildNav() {
+      let nav = document.getElementById("nav");
+      all.forEach(q => {
+        let b = document.createElement("button");
+        b.textContent = q.n;
+        b.onclick = () => document.getElementById("q" + q.n).scrollIntoView({ behavior: "smooth", block: "center" });
+        nav.appendChild(b);
+      });
+    }
+
+    // ===================== 交卷评分 =====================
+    function submitExam() {
+      let obj = 0, details = [], answered = 0;
+
+      all.forEach(q => {
+        let got = getSelected(q.n, q.type), ok = false, unanswered = false;
+        if (Array.isArray(got)) {
+          unanswered = got.length === 0;
+          if (!unanswered) {
+            ok = got.length === q.answer.length && got.every(x => q.answer.includes(x));
+          }
+        } else if (got === null) {
+          unanswered = true;
+        } else {
+          ok = got === q.answer;
+        }
+        if (!unanswered) answered++;
+        if (ok) obj += q.point;
+
+        let ans;
+        if (q.type === "tf") {
+          ans = q.answer === 0 ? "正确" : "错误";
+        } else if (Array.isArray(q.answer)) {
+          ans = q.answer.map(x => letters[x]).join("、");
+        } else {
+          ans = letters[q.answer];
+        }
+
+        let fb = document.getElementById("f" + q.n), ab = document.getElementById("a" + q.n), an = document.getElementById("an" + q.n);
+        fb.className = "feedback " + (ok ? "correct" : unanswered ? "" : "wrong");
+        fb.textContent = unanswered ? "未作答" : ok ? "回答正确" : "回答错误";
+        ab.style.display = "block";
+        ab.textContent = "参考答案：" + ans;
+        an.style.display = "block";
+
+        details.push(`<div style="padding:7px 0;border-bottom:1px solid #edf0f5"><b>第${q.n}题：</b><span class="${ok ? "correct" : unanswered ? "" : "wrong"}">${unanswered ? "未作答" : ok ? "正确" : "错误"}</span>　参考答案：${ans}</div>`);
+      });
+
+      const s41 = clamp("score41", 15), s42 = clamp("score42", 15), s5 = clamp("score5", 30);
+      const sub = s41 + s42 + s5, total = obj + sub;
+
+      document.getElementById("objScore").textContent = obj.toFixed(1);
+      document.getElementById("subScore").textContent = sub.toFixed(1);
+      document.getElementById("totalScore").innerHTML = total.toFixed(1) + ' <small style="font-size:17px;color:#77839a">/ 100 分</small>';
+      document.getElementById("gradeText").textContent =
+        total >= 90 ? "成绩优秀，继续保持！" :
+        total >= 80 ? "成绩良好，继续巩固薄弱知识点。" :
+        total >= 60 ? "达到基础合格水平，建议针对错题复习。" :
+                      "继续努力，建议系统梳理社区工作者考试知识点。";
+      document.getElementById("review").innerHTML = "<h3>客观题答题明细</h3>" + details.join("");
+      document.getElementById("result").style.display = "block";
+      document.getElementById("result").scrollIntoView({ behavior: "smooth" });
+    }
+
+    function clamp(id, max) {
+      let el = document.getElementById(id), v = parseFloat(el.value);
+      if (!Number.isFinite(v)) v = 0;
+      v = Math.max(0, Math.min(max, v));
+      el.value = v;
+      return v;
+    }
+
+    // ===================== 作文字数统计 =====================
+    document.getElementById("essay5").addEventListener("input", e =>
+      document.getElementById("wordCount").textContent = e.target.value.replace(/\s/g, "").length + " 字"
+    );
+
+    // ===================== 初始化 =====================
+    buildNav();
+    updateProgress();
+  </script>
+</body>
+</html>
